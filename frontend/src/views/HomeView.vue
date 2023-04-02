@@ -3,11 +3,18 @@ import type ButtonsVue from '@/components/Buttons.vue';
 
 <template>
   <div class="about">
-    <ActivitiesView />
+    <div>Activities
+      <ActivitiesView />
+
+    </div>
+    <div>
+      <LogsView />
+    </div>
   </div>
 </template>
 <script setup lang="ts">
 import ActivitiesView from '@/components/ActivitiesView.vue';
+import LogsView from '@/components/LogsView.vue';
 </script>
 
 <style>
