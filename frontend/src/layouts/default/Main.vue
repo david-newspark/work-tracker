@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import LogTableIconDialogVue from '@/components/LogTableIconDialog.vue';
 import { useActivityStore } from '@/stores/activityStore';
 import { useLogStore } from '@/stores/logsStore';
 import { computed, ref } from 'vue';
@@ -32,7 +33,7 @@ const isDark = computed(() => theme.global.name.value === 'dark')
             <span v-if="activityStore.active != undefined">Running... {{ activityStore.active.name }}</span>
             <v-spacer></v-spacer>
             <span class="bg-teal-lighten-4">
-                <span class="px-3">Totals</span>
+                <span class="px-3">Total</span>
                 <span class="px-1">
                     {{ logStore.logs.length }} tasks
                 </span>
@@ -40,11 +41,13 @@ const isDark = computed(() => theme.global.name.value === 'dark')
                     {{ totalTime }}
                 </span>
             </span>
+            <span>
+                <LogTableIconDialogVue />
+            </span>
             <span class="ms-2"  @click="setTheme">
                 <v-icon :icon="isDark ? 'mdi-weather-night' : 'mdi-weather-sunny'"></v-icon>
             </span>
             <span>
-                <v-icon icon="mdi-cog-outline"></v-icon>
             </span>
             <span class="ms-2">{{ timestamp }}</span>
         </v-system-bar>

@@ -23,13 +23,23 @@ const handleActivate = () => {
         logStore.start(activity.value.id)
 }
 const iconName = `mdi-${activity.value.icon}`
+const expand = ref(false)
+const myTime = computed(() => {
+    const seconds = logStore.logs.filter(l => l.activity_id==activity.value.id)
+    .reduce((sum, a) => sum + (a.duration ?? 0), 0)
+    if (seconds < 60) return `${seconds.toFixed()} seconds`
+    return `${(seconds / 60).toFixed()} minutes`
+})
 </script>
 <template>
-    <v-card variant="tonal" @click="handleActivate" :color="myColor" :id="activity.id" class="align-stretch mt-5"
-        style="min-height: 25%;" :prepend-icon="iconName" :loading="active">
-        <template v-slot:title>
-            {{ activity.name }}
-        </template>
+    <v-card variant="tonal" @click="handleActivate" :color="myColor" :id="activity.id" class="mt-5"
+        :append-icon="iconName" :loading="active">
+        <v-card-text class="align-self-center h-100">
+            <h1 style="font-size:220%">{{ activity.name }}</h1>
+            {{ myTime }}
+            <template v-slot:append>
+            </template>
+        </v-card-text>
     </v-card>
 </template>
 <style></style>

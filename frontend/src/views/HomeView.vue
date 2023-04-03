@@ -2,6 +2,7 @@
 <script setup lang="ts">
 import ActivitiesView from '@/components/ActivitiesView.vue';
 import LogsView from '@/components/LogsView.vue';
+import LogTable from '@/components/LogTable.vue';
 import { useWindowSize } from '@vueuse/core';
 
 

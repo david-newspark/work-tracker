@@ -28,9 +28,9 @@ const getDotColor = (item: ActivityLog) => {
                 mdi-{{ activity?.icon }}
             </v-icon>
         </template>
-        <template v-slot:opposite>
+        <!-- <template v-slot:opposite>
             {{ log.start.toLocaleString() }}
-        </template>
+        </template> -->
         <v-template>
             {{ activity?.name }}
         </v-template>
