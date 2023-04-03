@@ -1,8 +1,7 @@
 
 <script setup lang="ts">
 import ActivitiesView from '@/components/ActivitiesView.vue';
-import LogsView from '@/components/LogsView.vue';
-import LogTable from '@/components/LogTable.vue';
+import TimelineView from '@/components/TimelineView.vue';
 import { useWindowSize } from '@vueuse/core';
 
 
@@ -17,7 +16,7 @@ const {width, height} = useWindowSize()
         <ActivitiesView />
       </v-col>
       <v-col cols="6" style="height: height;">
-        <LogsView />
+        <TimelineView />
       </v-col>
     </v-row>
   </v-container>
