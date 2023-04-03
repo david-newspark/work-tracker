@@ -25,7 +25,7 @@ const headers = [
 
 </script>
 <template>
-    <h1>Logs</h1>
+    <h1>Report: Activity Log</h1>
     <v-table>
         <thead>
             <tr>
@@ -44,7 +44,7 @@ const headers = [
             </tr>
         </thead>
         <tbody>
-            <tr v-for="item in logStore.logs" :key="item.id">
+            <tr v-for="item in logStore.sorted" :key="item.id">
                 <LogTableRow :log="item" :activity="getById(item.activity_id)" />
             </tr>
         </tbody>

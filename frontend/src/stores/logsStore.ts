@@ -7,7 +7,7 @@ export const useLogStore = defineStore('activityLogs', {
     current: undefined as ActivityLog | undefined
   }),
   getters: {
-    sorted:(state) => state.logs.sort((n1, n2) => n2.stop == null ? -1 : n2.start.getTime() - n1.start.getTime())
+    sorted:(state) => state.logs.slice().reverse()
   },
   actions: {
     start(activity_id: string) {

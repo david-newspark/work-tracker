@@ -12,8 +12,8 @@ const activityStore = useActivityStore()
 const getById = (id: string): Activity | undefined => {
     return activityStore.activities.filter(a => a.id === id).shift()
 }
-const { logs } = storeToRefs(logStore)
-const { list, containerProps, wrapperProps } = useVirtualList(logStore.sorted, {
+const { logs, sorted } = storeToRefs(logStore)
+const { list, containerProps, wrapperProps } = useVirtualList(sorted, {
     itemHeight: 48
 })
 const { height } = useWindowSize()

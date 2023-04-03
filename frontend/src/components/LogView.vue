@@ -28,13 +28,10 @@ const getDotColor = (item: ActivityLog) => {
                 mdi-{{ activity?.icon }}
             </v-icon>
         </template>
-        <!-- <template v-slot:opposite>
-            {{ log.start.toLocaleString() }}
-        </template> -->
-        <v-template>
-            {{ activity?.name }}
-        </v-template>
         <div>
+            <h4>
+                {{ activity?.name }}
+            </h4>
             {{ log.duration }} <span v-if="log.stop != undefined"> {{ log.duration_unit }} </span>
         </div>
     </v-timeline-item>
