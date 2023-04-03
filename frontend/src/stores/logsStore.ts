@@ -14,6 +14,7 @@ export const useLogStore = defineStore('activityLogs', {
     stop() {
       if (this.current == undefined) return
       this.current.stop = new Date()
+      this.current.duration = (this.current.stop.getTime() - this.current.start.getTime()) / 1000
       this.current = undefined
     }
   }

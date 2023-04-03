@@ -9,15 +9,8 @@ const activities = reactive(activityStore.activities)
 const activated = computed(() => activityStore.active?.id ?? 'none')
 </script>
 <template>
-    <div v-for="item in activities">
-        <ActivityCard :activity="item" :active="item.id === activated" />
-    </div>
+        <div class="ma-16">
+            <ActivityCard :activity="item" :active="item.id === activated" v-for="item in activities" />
+        </div>
 </template>
-<style>
-.button {
-    background: rgba(255, 255, 255, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-}
-</style>
+<style></style>

@@ -15,17 +15,20 @@ const props = defineProps({
 const activity = ref(props.activity)
 const activityStore = useActivityStore()
 const logStore = useLogStore()
-const myColor = computed(() => props.active ? 'success' : 'secondary')
+const myColor = computed(() => props.active ? 'success' : '')
 const handleActivate = () => {
     activityStore.activate(activity.value)
     logStore.stop()
-    if(activityStore.active != null)
+    if (activityStore.active != null)
         logStore.start(activity.value.id)
 }
 
 </script>
 <template>
-    <v-btn variant="tonal" @click="handleActivate" :color="myColor" :id="activity.id">
-        {{ activity.name }}
-    </v-btn>
+    <v-card variant="tonal" @click="handleActivate" :color="myColor" :id="activity.id" height="90" class="d-inline">
+        <v-card-text>
+            {{ activity.name }}
+        </v-card-text>
+        <v-progress-linear indeterminate color="teal" v-if="active"></v-progress-linear>
+    </v-card>
 </template>
