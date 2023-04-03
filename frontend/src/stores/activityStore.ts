@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { createActivity, type Activity } from '@/types/Activity'
+import { useStorage } from '@vueuse/core'
 
 const activities: Activity[] = [
   createActivity({ name: 'Coding', icon: 'code-braces' }),
@@ -9,7 +10,7 @@ const activities: Activity[] = [
 
 export const useActivityStore = defineStore('activities', {
   state: () => ({
-    activities: activities,
+    activities: useStorage('activities', activities),
     active: undefined as Activity | undefined
   }),
   actions: {

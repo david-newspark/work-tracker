@@ -54,3 +54,5 @@ const isDark = computed(() => theme.global.name.value === 'dark')
         <router-view />
     </v-app>
 </template>
+<style>
+</style>

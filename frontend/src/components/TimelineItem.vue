@@ -16,23 +16,46 @@ const props = defineProps({
 
 const getDotColor = (item: ActivityLog) => {
     if (item.duration == undefined) return "red-lighten-2"
-    const timeFromNow = new Date().getTime() - item.start.getTime()
+    const timeFromNow = new Date().getTime() - new Date(item.start).getTime()
     if (timeFromNow < (1000 * 60 * 5)) return "orange-lighten-3"
     return "green-lighten-2"
 }
 </script>
 <template>
-    <v-timeline-item size="large" :dot-color="getDotColor(log)">
-        <template v-slot:icon>
-            <v-icon>
-                mdi-{{ activity?.icon }}
-            </v-icon>
+    <v-hover>
+        <template v-slot:default="{ isHovering, props }">
+            <v-timeline-item size="large" :dot-color="getDotColor(log)" v-bind="props">
+                <template v-slot:icon>
+                    <v-icon>
+                        mdi-{{ activity?.icon }}
+                    </v-icon>
+                </template>
+                <div>
+                    <h4>
+                        {{ activity?.name }}
+                    </h4>
+                    <span v-if="log.stop != undefined">
+                        {{ log.duration }} <span v-if="log.stop != undefined"> {{ log.duration_unit }}</span>
+                    </span>
+                    <v-fade-transition>
+                        <span id="mini" v-if="isHovering">
+                            <p>
+                                id: {{ log.id }}
+                            </p>
+                            <p>
+                                act_id: {{ log.activity_id }}
+                            </p>
+                        </span>
+                    </v-fade-transition>
+                </div>
+            </v-timeline-item>
         </template>
-        <div>
-            <h4>
-                {{ activity?.name }}
-            </h4>
-            {{ log.duration }} <span v-if="log.stop != undefined"> {{ log.duration_unit }} </span>
-        </div>
-    </v-timeline-item>
+    </v-hover>
 </template>
+
+<style scoped>
+#mini {
+    font-size: 70%;
+    height: 100%;
+}
+</style>

@@ -11,8 +11,8 @@ const activityStore = useActivityStore()
 const getById = (id: string): Activity | undefined => {
     return activityStore.activities.filter(a => a.id === id).shift()
 }
-const { logs, sorted } = storeToRefs(logStore)
-const { list, containerProps, wrapperProps } = useVirtualList(sorted, {
+const { logs, reverse } = storeToRefs(logStore)
+const { list, containerProps, wrapperProps } = useVirtualList(reverse, {
     itemHeight: 48
 })
 const { height } = useWindowSize()
@@ -25,14 +25,15 @@ const heightStyle = computed(() => {
 <template>
     <div v-bind="containerProps" class="winHeight" id="main-virtual-wrapper">
         <div v-bind="wrapperProps" id="inner-virtual-wrapper">
-            <v-slide-y-transition class="py-0" group tag="v-list">
-                <v-timeline side="end">
-                    <TimelineItem v-for="{ index, data } in list" :key="index" :log="data"
-                        :activity="getById(data.activity_id)" />
-                </v-timeline>
-            </v-slide-y-transition>
+            <v-timeline side="end">
+                <TimelineItem v-for="{ index, data } in list" :key="index" :log="data"
+                    :activity="getById(data.activity_id)" />
+            </v-timeline>
         </div>
     </div>
+    <v-sheet>
+        <v-btn color="success" @click="logStore.reset()">reset</v-btn>
+    </v-sheet>
 </template>
 <style>
 .winHeight {

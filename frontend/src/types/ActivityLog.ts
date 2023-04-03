@@ -2,8 +2,8 @@ import genUniqueId from "@/util/id"
 
 interface ActivityLog {
     id: string,
-    start: Date,
-    stop: Date | undefined,
+    start: number,
+    stop: number | undefined,
     duration: number | undefined,
     duration_unit: string,
     activity_id: string
