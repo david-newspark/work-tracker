@@ -25,11 +25,11 @@ const handleActivate = () => {
 const iconName = `mdi-${activity.value.icon}`
 </script>
 <template>
-    <v-card variant="tonal" @click="handleActivate" :color="myColor" :id="activity.id" height="90" class="d-inline"
-        :prepend-icon="iconName">
+    <v-card variant="tonal" @click="handleActivate" :color="myColor" :id="activity.id" class="align-stretch mt-5"
+        style="min-height: 25%;" :prepend-icon="iconName" :loading="active">
         <template v-slot:title>
             {{ activity.name }}
         </template>
-        <v-progress-linear indeterminate color="teal" v-if="active"></v-progress-linear>
     </v-card>
 </template>
+<style></style>

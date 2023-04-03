@@ -10,9 +10,9 @@ const {width, height} = useWindowSize()
 </script>
 
 <template>
-  <v-container class="h-screen">
+  <v-container class="h-screen mt-10">
     <v-row class="h-screen w-screen">
-      <v-col cols="6">
+      <v-col cols="6" class="fill-height">
         <ActivitiesView />
       </v-col>
       <v-col cols="6" style="height: height;">
