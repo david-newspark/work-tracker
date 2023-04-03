@@ -6,6 +6,9 @@ export const useLogStore = defineStore('activityLogs', {
     logs: [] as Array<ActivityLog>,
     current: undefined as ActivityLog | undefined
   }),
+  getters: {
+    sorted:(state) => state.logs.sort((n1, n2) => n2.stop == null ? -1 : n2.start.getTime() - n1.start.getTime())
+  },
   actions: {
     start(activity_id: string) {
       this.current = createActivityLog({ start: new Date(), activity_id })

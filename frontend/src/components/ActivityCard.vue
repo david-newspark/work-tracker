@@ -22,13 +22,14 @@ const handleActivate = () => {
     if (activityStore.active != null)
         logStore.start(activity.value.id)
 }
-
+const iconName = `mdi-${activity.value.icon}`
 </script>
 <template>
-    <v-card variant="tonal" @click="handleActivate" :color="myColor" :id="activity.id" height="90" class="d-inline">
-        <v-card-text>
+    <v-card variant="tonal" @click="handleActivate" :color="myColor" :id="activity.id" height="90" class="d-inline"
+        :prepend-icon="iconName">
+        <template v-slot:title>
             {{ activity.name }}
-        </v-card-text>
+        </template>
         <v-progress-linear indeterminate color="teal" v-if="active"></v-progress-linear>
     </v-card>
 </template>

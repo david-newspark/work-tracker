@@ -10,8 +10,8 @@ const {width, height} = useWindowSize()
 </script>
 
 <template>
-  <v-container grid-list-md class="h-screen">
-    <v-row class="h-screen">
+  <v-container class="h-screen">
+    <v-row class="h-screen w-screen">
       <v-col cols="6">
         <ActivitiesView />
       </v-col>

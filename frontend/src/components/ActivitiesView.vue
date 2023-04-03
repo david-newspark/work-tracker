@@ -9,8 +9,10 @@ const activities = reactive(activityStore.activities)
 const activated = computed(() => activityStore.active?.id ?? 'none')
 </script>
 <template>
-        <div class="ma-16">
-            <ActivityCard :activity="item" :active="item.id === activated" v-for="item in activities" />
-        </div>
+    <v-container>
+        <v-row dense>
+            <v-col cols="12">
+                <ActivityCard :activity="item" :active="item.id === activated" v-for="item in activities" />
+            </v-col></v-row></v-container>
 </template>
 <style></style>
