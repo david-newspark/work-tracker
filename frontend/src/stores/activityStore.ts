@@ -11,15 +11,17 @@ const activities: Activity[] = [
 export const useActivityStore = defineStore('activities', {
   state: () => ({
     activities: useStorage('activities', activities),
-    active: undefined as Activity | undefined
+    active: useStorage('current-active', '')
   }),
   actions: {
     add(activity: Activity) {
       activities.push(activity)
     },
     activate(activity: Activity) {
-      if (this.active === activity) this.active = undefined
-      else this.active = activity
+      if (this.active === activity.id){
+        this.active = ''
+      }      
+      else this.active = activity.id
     }
   }
 })

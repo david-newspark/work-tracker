@@ -17,13 +17,13 @@ const { list, containerProps, wrapperProps } = useVirtualList(reverse, {
 })
 const { height } = useWindowSize()
 const heightStyle = computed(() => {
-    const reducedH = height.value * 0.90
+    const reducedH = height.value * 0.92
     return `${reducedH}px`
 })
 
 </script>
 <template>
-    <div v-bind="containerProps" class="winHeight" id="main-virtual-wrapper">
+    <div v-bind="containerProps" class="fill-height" id="main-virtual-wrapper">
         <div v-bind="wrapperProps" id="inner-virtual-wrapper">
             <v-timeline side="end">
                 <TimelineItem v-for="{ index, data } in list" :key="index" :log="data"
@@ -31,9 +31,6 @@ const heightStyle = computed(() => {
             </v-timeline>
         </div>
     </div>
-    <v-sheet>
-        <v-btn color="success" @click="logStore.reset()">reset</v-btn>
-    </v-sheet>
 </template>
 <style>
 .winHeight {

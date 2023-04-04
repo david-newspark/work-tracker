@@ -26,11 +26,14 @@ const totalTime = computed(() => {
 const setTheme = () => theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
 const isDark = computed(() => theme.global.name.value === 'dark')
 </script>
+<script lang="ts">
+const author = import.meta.env.VITE_APP_AUTHOR
+</script>
 <template>
     <v-app id="main-app-wrapper">
         <v-system-bar>
             <!-- <v-icon icon="mdi-circle" class="ms-2" color="red" v-if="activityStore.active!=undefined"></v-icon> -->
-            <span v-if="activityStore.active != undefined">Running... {{ activityStore.active.name }}</span>
+            <!-- <span v-if="activityStore.active.length > 0">Running...</span> -->
             <v-spacer></v-spacer>
             <span class="bg-teal-lighten-4">
                 <span class="px-3">Total</span>
@@ -44,7 +47,7 @@ const isDark = computed(() => theme.global.name.value === 'dark')
             <span>
                 <LogTableIconDialogVue />
             </span>
-            <span class="ms-2"  @click="setTheme">
+            <span class="ms-2" @click="setTheme">
                 <v-icon :icon="isDark ? 'mdi-weather-night' : 'mdi-weather-sunny'"></v-icon>
             </span>
             <span>
@@ -52,7 +55,11 @@ const isDark = computed(() => theme.global.name.value === 'dark')
             <span class="ms-2">{{ timestamp }}</span>
         </v-system-bar>
         <router-view />
+        <v-footer>
+            <div class="px-4 text-right w-100 font-weight-thin text-caption text-grey-darken-1">
+                {{ new Date().getFullYear() }} — <strong>{{ author }}</strong>
+            </div>
+        </v-footer>
     </v-app>
 </template>
-<style>
-</style>
+<style></style>

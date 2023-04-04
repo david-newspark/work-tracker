@@ -20,7 +20,7 @@ const myTime = computed(() => {
 </script>
 <template>
     <td>{{ activity?.name }}</td>
-    <td>{{ log.start.toLocaleString() }}</td>
-    <td>{{ log.stop?.toLocaleString() }}</td>
+    <td>{{ new Date(log.start).toLocaleString() }}</td>
+    <td>{{  log.stop!=null ? new Date(log.stop).toLocaleString() : '' }}</td>
     <td>{{ myTime }}</td>
 </template>

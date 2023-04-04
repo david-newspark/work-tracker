@@ -44,7 +44,7 @@ const headers = [
             </tr>
         </thead>
         <tbody>
-            <tr v-for="item in logStore.sorted" :key="item.id">
+            <tr v-for="item in logStore.reverse" :key="item.id">
                 <LogTableRow :log="item" :activity="getById(item.activity_id)" />
             </tr>
         </tbody>

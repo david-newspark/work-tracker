@@ -6,12 +6,12 @@ import TimelineView from '@/components/TimelineView.vue';
 </script>
 
 <template>
-  <v-container class="h-screen">
-    <v-row class="h-screen w-screen">
-      <v-col cols="6" class="fill-height" id="activities">
+  <v-container class="overflow-hidden fill-height">
+    <v-row class="fill-height">
+      <v-col cols="6" id="activities" class="fill-height">
         <ActivitiesView />
       </v-col>
-      <v-col cols="6" style="height: height;" id="timeline">
+      <v-col cols="6" id="timeline">
         <TimelineView />
       </v-col>
     </v-row>

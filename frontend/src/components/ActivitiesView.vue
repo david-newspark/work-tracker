@@ -6,13 +6,12 @@ import ActivityCard from './ActivityCard.vue';
 
 const activityStore = useActivityStore()
 const activities = reactive(activityStore.activities)
-const activated = computed(() => activityStore.active?.id ?? 'none')
 </script>
 <template>
     <v-container class="h-100">
         <v-row dense class="h-100">
             <v-col cols="12" class="h-100">
-                <ActivityCard :activity="item" :active="item.id === activated" v-for="item in activities" class="align-stretch" />
+                <ActivityCard :activity="item" :active="item.id === activityStore.active" v-for="item in activities" class="align-stretch" />
             </v-col></v-row></v-container>
 </template>
 <style></style>

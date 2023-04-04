@@ -22,7 +22,7 @@ const myColor = computed(() => props.active ? 'success' : '')
 const handleActivate = () => {
     activityStore.activate(activity.value)
     logStore.stop()
-    if (activityStore.active != null){
+    if (activityStore.active.length > 0){
         logStore.start(activity.value.id)
         favIcon.value = 'fire-circle-custom.png'
         browserTitle.value = `${activity.value.name} | Activity Tracker`

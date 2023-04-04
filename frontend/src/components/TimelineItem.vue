@@ -37,7 +37,7 @@ const getDotColor = (item: ActivityLog) => {
                     <span v-if="log.stop != undefined">
                         {{ log.duration }} <span v-if="log.stop != undefined"> {{ log.duration_unit }}</span>
                     </span>
-                    <v-fade-transition>
+                    <!-- <v-fade-transition>
                         <span id="mini" v-if="isHovering">
                             <p>
                                 id: {{ log.id }}
@@ -46,7 +46,7 @@ const getDotColor = (item: ActivityLog) => {
                                 act_id: {{ log.activity_id }}
                             </p>
                         </span>
-                    </v-fade-transition>
+                    </v-fade-transition> -->
                 </div>
             </v-timeline-item>
         </template>
