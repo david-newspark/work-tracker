@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { Activity } from '@/types/Activity';
 import type { ActivityLog } from '@/types/ActivityLog';
-import type { PropType } from 'vue';
+import { computed, type PropType } from 'vue';
+import transform from '@/util/timeTransform'
 
 const props = defineProps({
     log: {
@@ -15,11 +16,12 @@ const props = defineProps({
 })
 
 const getDotColor = (item: ActivityLog) => {
-    if (item.duration == undefined) return "red-lighten-2"
-    const timeFromNow = new Date().getTime() - new Date(item.start).getTime()
+    if (item.duration == undefined || item.stop == undefined || item.stop == 0) return "red-lighten-2"
+    const timeFromNow = new Date().getTime() - new Date(item.stop).getTime()
     if (timeFromNow < (1000 * 60 * 5)) return "orange-lighten-3"
     return "green-lighten-2"
 }
+const logTime = computed(() => transform(props.log.duration ?? 0))
 </script>
 <template>
     <v-hover>
@@ -35,18 +37,8 @@ const getDotColor = (item: ActivityLog) => {
                         {{ activity?.name }}
                     </h4>
                     <span v-if="log.stop != undefined">
-                        {{ log.duration }} <span v-if="log.stop != undefined"> {{ log.duration_unit }}</span>
+                        {{ logTime.length.toFixed(1) }} {{ logTime.type }}
                     </span>
-                    <!-- <v-fade-transition>
-                        <span id="mini" v-if="isHovering">
-                            <p>
-                                id: {{ log.id }}
-                            </p>
-                            <p>
-                                act_id: {{ log.activity_id }}
-                            </p>
-                        </span>
-                    </v-fade-transition> -->
                 </div>
             </v-timeline-item>
         </template>
