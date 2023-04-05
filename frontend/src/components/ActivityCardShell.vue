@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { useActivityStore } from '@/stores/activityStore';
+import { useIconStore } from '@/stores/iconStore';
 import { createActivity, type Activity } from '@/types/Activity';
 import { computed, ref } from 'vue';
 const activityStore = useActivityStore()
+const iconStore = useIconStore()
 const show = ref(false)
 const taskNameRules = [
     (name: string | undefined) => {
@@ -54,7 +56,7 @@ const alreadyActive = ():boolean => {
 <template>
     <v-hover>
         <template v-slot:default="{ isHovering, props }">
-            <v-card variant="flat" class="mt-5" v-bind="props">
+            <v-card variant="plain" class="mt-5" v-bind="props">
                 <v-card-text class="align-self-center h-100 text-right text" @click="show ? hideForm() : showForm()">
                     <h1 style="font-size:220%" class="d-inline-block">
                         <v-fade-transition>
@@ -74,7 +76,7 @@ const alreadyActive = ():boolean => {
                                             <v-text-field v-model="taskName" :rules="taskNameRules" label="Task name"
                                                 required variant="underlined"></v-text-field>
                                             <v-autocomplete v-model="iconName" label="Icon name" variant="underlined"
-                                                :prepend-inner-icon="displayIconName">
+                                                :prepend-inner-icon="displayIconName" :items="iconStore.icons">
                                             </v-autocomplete>
                                             <div class="text-end">
                                                 <v-btn class="mt-2" variant="plain" @click="hideForm"><v-icon

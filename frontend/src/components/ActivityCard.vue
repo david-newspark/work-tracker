@@ -5,6 +5,7 @@ import type { Activity } from '@/types/Activity';
 import { useFavicon, useTitle } from '@vueuse/core';
 import transform from '@/util/timeTransform'
 import { computed, ref, type PropType, type Ref } from 'vue';
+import { useIconStore } from '@/stores/iconStore';
 
 const props = defineProps({
     activity: {
