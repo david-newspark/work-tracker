@@ -16,7 +16,7 @@ export const useActivityStore = defineStore('activities', {
   }),
   getters: {
     atMax: (state) => {
-        return state.activities.length >= state.max
+        return state.activities.filter(a => !a.removed).length >= state.max
     },
     remaining: (state) => {
       return state.max - state.activities.length

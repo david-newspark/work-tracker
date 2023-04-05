@@ -32,6 +32,13 @@ const handleActivate = () => {
         browserTitle.value = `Activity Tracker`
     }
 }
+const handleRemove = () => {
+    if (activityStore.active == activity.value.id) {
+        activityStore.activate(activity.v)
+        logStore.stop()
+    }
+    activity.value.removed = true
+}
 const iconName = `mdi-${activity.value.icon}`
 const logTime = computed(() => {
     const duration = logStore.logs.filter(l => l.activity_id == activity.value.id)
@@ -40,14 +47,24 @@ const logTime = computed(() => {
 })
 </script>
 <template>
-    <v-card variant="tonal" @click="handleActivate" :color="myColor" :id="activity.id" class="mt-5" :append-icon="iconName"
-        :loading="active">
-        <v-card-text class="align-self-center h-100">
-            <h1 style="font-size:220%">{{ activity.name }}</h1>
-            {{ logTime.length.toFixed() }} {{ logTime.type }}
-            <template v-slot:append>
-            </template>
-        </v-card-text>
-    </v-card>
+    <v-hover>
+        <template v-slot:default="{ isHovering, props }">
+            <div class="mb-5" v-bind="props">
+                <v-card variant="tonal" @click="handleActivate" :color="myColor" :id="activity.id" class="ma-1 py-1"
+                    :append-icon="iconName" :loading="active">
+                    <v-card-text class="align-self-center h-100">
+                        <h1 style="font-size:220%">{{ activity.name }}</h1>
+                        {{ logTime.length.toFixed() }} {{ logTime.type }}
+                        <template v-slot:append>
+                        </template>
+                    </v-card-text>
+                </v-card>
+                <div class="text-end" transition="slide-y-transition" v-show="isHovering">
+                    <v-btn @click="handleRemove" icon="mdi-close-circle-outline" color="red-accent-1" variant="plain">
+                    </v-btn>
+                </div>
+            </div>
+        </template>
+    </v-hover>
 </template>
 <style></style>
