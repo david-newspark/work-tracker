@@ -10,12 +10,22 @@ const activities: Activity[] = [
 
 export const useActivityStore = defineStore('activities', {
   state: () => ({
-    activities: useStorage('activities', activities),
-    active: useStorage('current-active', '')
+    activities: useStorage('activities', activities, localStorage, { mergeDefaults: true }),
+    active: useStorage('current-active', ''),
+    max: 5
   }),
+  getters: {
+    atMax: (state) => {
+        return state.activities.length >= state.max
+    },
+    remaining: (state) => {
+      return state.max - state.activities.length
+    },
+    visible: (state) => state.activities.filter(a => !a.removed || a.removed==undefined)
+  },
   actions: {
     add(activity: Activity) {
-      activities.push(activity)
+      this.activities.push(activity)
     },
     activate(activity: Activity) {
       if (this.active === activity.id){

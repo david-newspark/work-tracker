@@ -23,7 +23,7 @@ const heightStyle = computed(() => {
 
 </script>
 <template>
-    <div v-bind="containerProps" class="fill-height" id="main-virtual-wrapper">
+    <div v-bind="containerProps" id="main-virtual-wrapper">
         <div v-bind="wrapperProps" id="inner-virtual-wrapper">
             <v-timeline side="end">
                 <TimelineItem v-for="{ index, data } in list" :key="index" :log="data"
@@ -33,7 +33,7 @@ const heightStyle = computed(() => {
     </div>
 </template>
 <style>
-.winHeight {
+#main-virtual-wrapper {
     height: v-bind(heightStyle)
 }
 </style>

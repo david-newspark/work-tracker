@@ -6,7 +6,7 @@ import ActivityCard from './ActivityCard.vue';
 import ActivityCardShell from './ActivityCardShell.vue';
 
 const activityStore = useActivityStore()
-const activities = reactive(activityStore.activities)
+const activities = reactive(activityStore.visible)
 </script>
 <template>
     <v-container class="h-100">
