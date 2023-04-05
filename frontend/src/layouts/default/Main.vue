@@ -3,6 +3,7 @@
 import LogTableIconDialogVue from '@/components/LogTableIconDialog.vue';
 import { useActivityStore } from '@/stores/activityStore';
 import { useLogStore } from '@/stores/logsStore';
+import { useUserStateStore } from '@/stores/userStateStore';
 import { computed, ref } from 'vue';
 import { useTheme } from 'vuetify';
 
@@ -17,13 +18,17 @@ const setTime = setInterval(() => {
 }, 1000)
 const activityStore = useActivityStore()
 const logStore = useLogStore()
+const userStateStore = useUserStateStore()
 const totalTime = computed(() => {
     const seconds = logStore.logs
         .reduce((sum, a) => sum + (a.duration ?? 0), 0)
     if (seconds < 60) return `${seconds.toFixed()} seconds`
     return `${(seconds / 60).toFixed()} minutes`
 })
-const setTheme = () => theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
+const setTheme = () =>{
+    theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
+    userStateStore.userState.theme = theme.global.name.value
+} 
 const isDark = computed(() => theme.global.name.value === 'dark')
 </script>
 <script lang="ts">
