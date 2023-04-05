@@ -25,7 +25,7 @@ export const useActivityStore = defineStore('activities', {
   },
   actions: {
     add(activity: Activity) {
-      if (activity.id != undefined) {
+      if (activities.filter(a => a.id === activity.id).length > 0) {
         this.activities.map((a) => {
           if (a.id === activity.id) a = activity
         })

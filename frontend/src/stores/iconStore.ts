@@ -7,7 +7,8 @@ const defaultList:string[] = [
     'fire-circle',
     'controller',
     'calendar-check',
-    'cog'
+    'cog',
+    'monitor-account'
 ]
 
 export const useIconStore = defineStore('icons', {

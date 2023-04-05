@@ -31,6 +31,7 @@ const addActivity = () => {
     }
     newActivity.icon = iconName.value
     newActivity.removed = false
+    console.log('Activity:', newActivity)
     activityStore.add(newActivity)
     show.value=false
     if(form.value != undefined){
