@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-import ActivitiesView from '@/components/ActivitiesView.vue';
+import ActivityList from '@/components/ActivityList.vue';
 import TimelineView from '@/components/TimelineView.vue';
 
 </script>
@@ -9,7 +9,7 @@ import TimelineView from '@/components/TimelineView.vue';
   <v-container class="overflow-hidden">
     <v-row >
       <v-col cols="6" id="activities" class="fill-height">
-        <ActivitiesView />
+        <ActivityList />
       </v-col>
       <v-col cols="6" id="timeline">
         <TimelineView />

@@ -2,17 +2,19 @@
 import { useActivityStore } from '@/stores/activityStore';
 import { useLogStore } from '@/stores/logsStore';
 import type { Activity } from '@/types/Activity';
-import { useFavicon, useTitle } from '@vueuse/core';
+import { useFavicon, useMagicKeys, useTitle } from '@vueuse/core';
 import transform from '@/util/timeTransform'
 import { computed, ref, type PropType, type Ref } from 'vue';
 import { useIconStore } from '@/stores/iconStore';
+import { watch } from 'vue';
 
 const props = defineProps({
     activity: {
         type: Object as PropType<Activity>,
         required: true
     },
-    active: Boolean
+    active: Boolean,
+    idxKey: Number
 })
 
 const activity = ref(props.activity)
@@ -47,6 +49,18 @@ const logTime = computed(() => {
         .reduce((sum, a) => sum + (a.duration ?? 0), 0)
     return transform(duration ?? 0)
 })
+
+// Key ctrl+index
+const cmdKey = `Alt+${props.idxKey}`
+const keys = useMagicKeys()
+const mappedKey = keys[cmdKey]
+watch(mappedKey, (v) => {
+    if (v) {
+        // console.log('Key press: ' + cmdKey, v)
+        handleActivate()
+    }
+})
+
 </script>
 <template>
     <v-hover>
@@ -56,9 +70,10 @@ const logTime = computed(() => {
                     <!-- actions -->
                     <v-col cols="2">
                         <div class="text-end" v-show="isHovering">
+                            {{ cmdKey }},
+                            {{ idxKey }}
                             <v-btn @click="handleRemove" icon="mdi-close-circle-outline" color="red-accent-1"
-                                :ripple="false"
-                                variant="plain">
+                                :ripple="false" variant="plain">
                             </v-btn>
                         </div>
                     </v-col>
