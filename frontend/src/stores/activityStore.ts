@@ -16,22 +16,32 @@ export const useActivityStore = defineStore('activities', {
   }),
   getters: {
     atMax: (state) => {
-        return state.activities.filter(a => !a.removed).length >= state.max
+      return state.activities.filter((a) => !a.removed).length >= state.max
     },
     remaining: (state) => {
       return state.max - state.activities.length
     },
-    visible: (state) => state.activities.filter(a => !a.removed || a.removed==undefined)
+    visible: (state) => state.activities.filter((a) => !a.removed || a.removed == undefined)
   },
   actions: {
     add(activity: Activity) {
-      this.activities.push(activity)
+      if (activity.id != undefined) {
+        this.activities.map((a) => {
+          if (a.id === activity.id) a = activity
+        })
+      } else {
+        this.activities.push(activity)
+      }
     },
     activate(activity: Activity) {
-      if (this.active === activity.id){
+      if (this.active === activity.id) {
         this.active = ''
-      }      
-      else this.active = activity.id
+      } else this.active = activity.id
+    },
+    remove(activity: Activity) {
+      this.activities.map((a) => {
+        if (a.id == activity.id) a.removed = true
+      })
     }
   }
 })

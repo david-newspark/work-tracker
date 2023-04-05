@@ -33,11 +33,12 @@ const handleActivate = () => {
     }
 }
 const handleRemove = () => {
+    console.log('Remove', activity.value.id)
     if (activityStore.active == activity.value.id) {
-        activityStore.activate(activity.v)
+        activityStore.activate(activity.value)
         logStore.stop()
     }
-    activity.value.removed = true
+    activityStore.remove(activity.value)
 }
 const iconName = `mdi-${activity.value.icon}`
 const logTime = computed(() => {
@@ -49,21 +50,31 @@ const logTime = computed(() => {
 <template>
     <v-hover>
         <template v-slot:default="{ isHovering, props }">
-            <div class="mb-5" v-bind="props">
-                <v-card variant="tonal" @click="handleActivate" :color="myColor" :id="activity.id" class="ma-1 py-1"
-                    :append-icon="iconName" :loading="active">
-                    <v-card-text class="align-self-center h-100">
-                        <h1 style="font-size:220%">{{ activity.name }}</h1>
-                        {{ logTime.length.toFixed() }} {{ logTime.type }}
-                        <template v-slot:append>
-                        </template>
-                    </v-card-text>
-                </v-card>
-                <div class="text-end" transition="slide-y-transition" v-show="isHovering">
-                    <v-btn @click="handleRemove" icon="mdi-close-circle-outline" color="red-accent-1" variant="plain">
-                    </v-btn>
-                </div>
-            </div>
+            <v-container v-bind="props">
+                <v-row>
+                    <!-- actions -->
+                    <v-col cols="2">
+                        <div class="text-end" v-show="isHovering">
+                            <v-btn @click="handleRemove" icon="mdi-close-circle-outline" color="red-accent-1"
+                                :ripple="false"
+                                variant="plain">
+                            </v-btn>
+                        </div>
+                    </v-col>
+                    <!-- activity -->
+                    <v-col>
+                        <v-card variant="tonal" @click="handleActivate" :color="myColor" :id="activity.id" class="pa-1"
+                            :append-icon="iconName" :loading="active">
+                            <v-card-text class="align-self-center h-100">
+                                <h1 style="font-size:220%">{{ activity.name }}</h1>
+                                {{ logTime.length.toFixed() }} {{ logTime.type }}
+                                <template v-slot:append>
+                                </template>
+                            </v-card-text>
+                        </v-card>
+                    </v-col>
+                </v-row>
+            </v-container>
         </template>
     </v-hover>
 </template>

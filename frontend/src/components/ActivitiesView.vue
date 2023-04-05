@@ -6,14 +6,18 @@ import ActivityCard from './ActivityCard.vue';
 import ActivityCardShell from './ActivityCardShell.vue';
 
 const activityStore = useActivityStore()
-const activities = reactive(activityStore.visible)
 </script>
 <template>
     <v-container class="h-100">
         <v-row dense class="h-100">
             <v-col cols="12" class="h-100">
-                <ActivityCard :activity="item" :active="item.id === activityStore.active" v-for="item in activities"
-                    class="align-stretch" />
+                <v-slide-y-transition class="py-0" group tag="v-list">
+                    <template v-for="(task, i) in activityStore.visible" :key="`${i}-${task.id}`">
+                        <div>
+                            <ActivityCard :activity="task" :active="task.id === activityStore.active" />
+                        </div>
+                    </template>
+                </v-slide-y-transition>
                 <ActivityCardShell />
             </v-col>
         </v-row>

@@ -1,15 +1,13 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <v-container class="h-100">
+    <v-row class="h-100">
+      <v-col class="h-100 d-flex align-center">
+        <v-card class="w-100">
+          <v-card-text class="text-end">
+            <h1>About!</h1>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
-
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
-</style>
