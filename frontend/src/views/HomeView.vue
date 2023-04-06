@@ -1,25 +1,25 @@
 
 <script setup lang="ts">
-import ActivitiesView from '@/components/ActivitiesView.vue';
-import LogsView from '@/components/LogsView.vue';
-import { useWindowSize } from '@vueuse/core';
-
-
-const {width, height} = useWindowSize()
+import ActivityList from '@/components/ActivityList.vue';
+import TimelineView from '@/components/TimelineView.vue';
 
 </script>
 
 <template>
-  <v-container grid-list-md class="h-screen">
-    <v-row class="h-screen">
-      <v-col cols="6">
-        <ActivitiesView />
+  <v-container class="overflow-hidden">
+    <v-row >
+      <v-col cols="6" id="activities" class="fill-height">
+        <ActivityList />
       </v-col>
-      <v-col cols="6" style="height: height;">
-        <LogsView />
+      <v-col cols="6" id="timeline">
+        <TimelineView />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
-<style></style>
+<style>
+#timeline {
+  /* border-radius: 16px; */
+}
+</style>

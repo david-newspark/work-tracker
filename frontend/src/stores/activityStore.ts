@@ -1,24 +1,47 @@
 import { defineStore } from 'pinia'
 import { createActivity, type Activity } from '@/types/Activity'
+import { useStorage } from '@vueuse/core'
 
 const activities: Activity[] = [
-  createActivity({ name: 'Default - 1' }),
-  createActivity({ name: 'Default - 2' }),
-  createActivity({ name: 'Default - 3' })
+  createActivity({ name: 'Coding', icon: 'code-braces' }),
+  createActivity({ name: 'Compiling', icon: '' }),
+  createActivity({ name: 'Reading', icon: 'book-open' })
 ]
 
 export const useActivityStore = defineStore('activities', {
   state: () => ({
-    activities: activities,
-    active: undefined as Activity | undefined
+    activities: useStorage('activities', activities, localStorage, { mergeDefaults: true }),
+    active: useStorage('current-active', ''),
+    max: 5
   }),
+  getters: {
+    atMax: (state) => {
+      return state.activities.filter((a) => !a.removed).length >= state.max
+    },
+    remaining: (state) => {
+      return state.max - state.activities.length
+    },
+    visible: (state) => state.activities.filter((a) => !a.removed || a.removed == undefined)
+  },
   actions: {
     add(activity: Activity) {
-      activities.push(activity)
+      if (activities.filter(a => a.id === activity.id).length > 0) {
+        this.activities.map((a) => {
+          if (a.id === activity.id) a = activity
+        })
+      } else {
+        this.activities.push(activity)
+      }
     },
     activate(activity: Activity) {
-      if (this.active === activity) this.active = undefined
-      else this.active = activity
+      if (this.active === activity.id) {
+        this.active = ''
+      } else this.active = activity.id
+    },
+    remove(activity: Activity) {
+      this.activities.map((a) => {
+        if (a.id == activity.id) a.removed = true
+      })
     }
   }
 })

@@ -1,21 +1,28 @@
 import { type ActivityLog, createActivityLog } from '@/types/ActivityLog'
 import { defineStore } from 'pinia'
+import { useStorage } from '@vueuse/core'
 
 export const useLogStore = defineStore('activityLogs', {
   state: () => ({
-    logs: [] as Array<ActivityLog>,
-    current: undefined as ActivityLog | undefined
+    logs: useStorage('activity-logs', [] as ActivityLog[], localStorage, { mergeDefaults: true }),
   }),
+  getters: {
+    reverse:(state) => state.logs.slice().reverse(),
+    current:(state) => state.logs[state.logs.length - 1]
+  },
   actions: {
     start(activity_id: string) {
-      this.current = createActivityLog({ start: new Date(), activity_id })
-      this.logs.push(this.current)
+      this.logs.push(createActivityLog({ start: new Date().getTime(), activity_id }))
     },
     stop() {
       if (this.current == undefined) return
-      this.current.stop = new Date()
-      this.current.duration = (this.current.stop.getTime() - this.current.start.getTime()) / 1000
-      this.current = undefined
+      this.current.stop = new Date().getTime()
+      this.current.duration = (new Date(this.current.stop).getTime() - new Date(this.current.start).getTime()) / 1000
+    },
+    reset() {
+      console.log("Clear")
+      this.logs = []
+      useStorage('activity-logs', [] as ActivityLog[])
     }
   }
 })
