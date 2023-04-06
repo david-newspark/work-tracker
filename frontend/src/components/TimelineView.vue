@@ -13,7 +13,7 @@ const getById = (id: string): Activity | undefined => {
 }
 const { logs, reverse } = storeToRefs(logStore)
 const { list, containerProps, wrapperProps } = useVirtualList(reverse, {
-    itemHeight: 48
+    itemHeight: 38
 })
 const { height } = useWindowSize()
 const heightStyle = computed(() => {
