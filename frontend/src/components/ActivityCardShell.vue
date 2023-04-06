@@ -3,16 +3,15 @@ import { useActivityStore } from '@/stores/activityStore';
 import { useIconStore } from '@/stores/iconStore';
 import { createActivity, type Activity } from '@/types/Activity';
 import { computed, ref, type Ref } from 'vue';
+
 const activityStore = useActivityStore()
 const iconStore = useIconStore()
 const show = ref(false)
 const taskNameRules = [
     (name: string | undefined) => {
-        if (name) return true
-        return 'You must enter a task name.'
-    },
-    (name: string | undefined) => {
+        if (name == undefined || name.trim().length == 0) return 'You must enter a task name.'
         if (alreadyActive()) return 'Already exists!'
+        return true
     }
 ]
 const taskName = ref('')
@@ -22,7 +21,7 @@ const displayIconName = computed(() => {
     if (iconName.value == undefined) iconName.value = 'fire-circle'
     return getIconName(iconName)
 })
-const getIconName = (iconValue:Ref<string>):string => {
+const getIconName = (iconValue: Ref<string>): string => {
     return iconValue.value.startsWith('mdi-') ? iconValue.value : `mdi-${iconValue.value}`
 }
 const addActivity = () => {
@@ -36,10 +35,7 @@ const addActivity = () => {
     newActivity.removed = false
     console.log('Activity:', newActivity)
     activityStore.add(newActivity)
-    show.value = false
-    if (form.value != undefined) {
-        form.value.reset()
-    }
+    hideForm()
 }
 const findActivity = (): Activity | undefined => {
     return activityStore.activities.filter(a => a.name === taskName.value).shift()
@@ -49,7 +45,8 @@ const showForm = () => {
     show.value = !show.value
 }
 const hideForm = () => {
-    if (form.value != undefined) form.value.reset()
+    taskName.value = ''
+    iconName.value = 'fire-circle'
     show.value = false
 }
 const alreadyActive = (): boolean => {
@@ -82,8 +79,8 @@ const alreadyActive = (): boolean => {
                                             <v-autocomplete v-model="iconName" label="Icon name" variant="underlined"
                                                 :prepend-inner-icon="displayIconName" :items="iconStore.icons">
                                                 <template v-slot:item="{ props, item }">
-                                                    <v-list-item v-bind="props"
-                                                        :title="item.value" :prepend-icon="getIconName(item)"></v-list-item>
+                                                    <v-list-item v-bind="props" :title="item.value"
+                                                        :prepend-icon="getIconName(item)"></v-list-item>
                                                 </template>
                                             </v-autocomplete>
                                             <div class="text-end">
