@@ -60,7 +60,7 @@ const author = import.meta.env.VITE_APP_AUTHOR
             <span class="ms-2">{{ timestamp }}</span>
         </v-system-bar>
         <router-view />
-        <v-footer class="bg-background">
+        <v-footer transparent>
             <div class="px-4 text-right w-100 font-weight-thin text-caption text-grey-darken-1">
                 {{ new Date().getFullYear() }} — <strong>{{ author }}</strong>
             </div>
@@ -69,8 +69,6 @@ const author = import.meta.env.VITE_APP_AUTHOR
 </template>
 <style>
 .v-application {
-    background: url("https://www.itl.cat/pngfile/big/157-1572191_hd-wallpapers-for-website-background-cool-background-image.jpg") no-repeat center center
-    fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

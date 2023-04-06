@@ -2,7 +2,7 @@
 import { useActivityStore } from '@/stores/activityStore';
 import { useIconStore } from '@/stores/iconStore';
 import { createActivity, type Activity } from '@/types/Activity';
-import { computed, ref } from 'vue';
+import { computed, ref, type Ref } from 'vue';
 const activityStore = useActivityStore()
 const iconStore = useIconStore()
 const show = ref(false)
@@ -12,44 +12,47 @@ const taskNameRules = [
         return 'You must enter a task name.'
     },
     (name: string | undefined) => {
-        if(alreadyActive()) return 'Already exists!'
+        if (alreadyActive()) return 'Already exists!'
     }
 ]
 const taskName = ref('')
 const iconName = ref('fire-circle')
 const form = ref(undefined)
 const displayIconName = computed(() => {
-    if(iconName.value == undefined) iconName.value = 'fire-circle'
-    return iconName.value.startsWith('mdi-') ? iconName.value : `mdi-${iconName.value}`
+    if (iconName.value == undefined) iconName.value = 'fire-circle'
+    return getIconName(iconName)
 })
+const getIconName = (iconValue:Ref<string>):string => {
+    return iconValue.value.startsWith('mdi-') ? iconValue.value : `mdi-${iconValue.value}`
+}
 const addActivity = () => {
     iconName.value = iconName.value.startsWith('mdi') ? iconName.value.substring(4) : iconName.value
     console.log(`Add: ${taskName.value} ${iconName.value}`)
     let newActivity = findActivity()
-    if(newActivity == undefined){
-        newActivity = createActivity({name:taskName.value, icon:iconName.value})
+    if (newActivity == undefined) {
+        newActivity = createActivity({ name: taskName.value, icon: iconName.value })
     }
     newActivity.icon = iconName.value
     newActivity.removed = false
     console.log('Activity:', newActivity)
     activityStore.add(newActivity)
-    show.value=false
-    if(form.value != undefined){
+    show.value = false
+    if (form.value != undefined) {
         form.value.reset()
     }
 }
-const findActivity = ():Activity | undefined => {
+const findActivity = (): Activity | undefined => {
     return activityStore.activities.filter(a => a.name === taskName.value).shift()
 }
 const showForm = () => {
-    if(activityStore.atMax) return;
+    if (activityStore.atMax) return;
     show.value = !show.value
 }
 const hideForm = () => {
-    if(form.value != undefined) form.value.reset()
+    if (form.value != undefined) form.value.reset()
     show.value = false
 }
-const alreadyActive = ():boolean => {
+const alreadyActive = (): boolean => {
     const found = findActivity()
     return found != undefined && !found.removed
 }
@@ -78,6 +81,10 @@ const alreadyActive = ():boolean => {
                                                 required variant="underlined"></v-text-field>
                                             <v-autocomplete v-model="iconName" label="Icon name" variant="underlined"
                                                 :prepend-inner-icon="displayIconName" :items="iconStore.icons">
+                                                <template v-slot:item="{ props, item }">
+                                                    <v-list-item v-bind="props"
+                                                        :title="item.value" :prepend-icon="getIconName(item)"></v-list-item>
+                                                </template>
                                             </v-autocomplete>
                                             <div class="text-end">
                                                 <v-btn class="mt-2" variant="plain" @click="hideForm"><v-icon

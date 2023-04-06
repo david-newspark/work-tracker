@@ -68,9 +68,9 @@ watch(mappedKey, (v) => {
             <v-container v-bind="props">
                 <v-row>
                     <!-- actions -->
-                    <v-col cols="1">
+                    <v-col cols="2">
                         <div v-show="isHovering" class="text-end">
-                            <v-btn variant="outline" density="compact" disabled="true">{{ cmdKey }}</v-btn>
+                            <v-btn variant="outlined" density="compact" disabled=true>{{ cmdKey }}</v-btn>
                             <v-btn @click="handleRemove" icon="mdi-close-circle-outline" color="red-accent-1"
                                 :ripple="false" variant="plain">
                             </v-btn>

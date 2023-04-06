@@ -7,7 +7,7 @@ import * as directives from 'vuetify/directives'
 import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
 
-
+const defaultTheme = 'dark';
 
 export default createVuetify({
   components,
