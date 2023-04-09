@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Activity } from '@/types/Activity';
 import type { ActivityLog } from '@/types/ActivityLog';
-import { computed, ref, type PropType, emit } from 'vue';
+import { computed, ref, type PropType } from 'vue';
 import transform from '@/util/timeTransform'
 import { useDialogStore } from '@/stores/dialogStore';
 
