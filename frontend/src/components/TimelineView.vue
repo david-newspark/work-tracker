@@ -7,6 +7,7 @@ import { useActivityStore } from '@/stores/activityStore';
 import type { Activity } from '@/types/Activity';
 import TimelineItem from './TimelineItem.vue';
 import ConfirmDialog from './ConfirmDialog.vue';
+import { useDialogStore } from '@/stores/dialogStore';
 const logStore = useLogStore()
 const activityStore = useActivityStore()
 const getById = (id: string): Activity | undefined => {
@@ -22,6 +23,15 @@ const heightStyle = computed(() => {
     return `${reducedH}px`
 })
 
+const dialogStore = useDialogStore()
+const handleRemoveLog=() => {
+    const log = logStore.logs.filter(l => l.id == dialogStore.logId)
+    if(log == undefined) return
+    if(activityStore.active == log[0].activity_id) activityStore.deactivate(log[0].activity_id)
+    logStore.remove(dialogStore.logId)
+    dialogStore.logId=''
+}
+
 </script>
 <template>
     <div v-bind="containerProps" id="main-virtual-wrapper">
@@ -32,7 +42,7 @@ const heightStyle = computed(() => {
             </v-timeline>
         </div>
     </div>
-    <ConfirmDialog/>
+    <ConfirmDialog @do-remove="handleRemoveLog"/>
 </template>
 <style>
 #main-virtual-wrapper {

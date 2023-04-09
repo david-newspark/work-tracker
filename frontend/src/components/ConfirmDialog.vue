@@ -15,9 +15,10 @@ watch(logId, () => {
     console.log('removeLog', logId)
     if (logId.value.length > 0) showConfirm.value = true
 })
+const doRemove = defineEmits(['do-remove'])
 const removeLog = () => {
     console.log('Remove:', logId.value)
-    logsStore.remove(logId.value)
+    doRemove('do-remove')
     closeDialog()
 }
 </script>

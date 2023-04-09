@@ -4,6 +4,7 @@ import type { ActivityLog } from '@/types/ActivityLog';
 import { computed, ref, type PropType } from 'vue';
 import transform from '@/util/timeTransform'
 import { useDialogStore } from '@/stores/dialogStore';
+import { useActivityStore } from '@/stores/activityStore';
 
 const props = defineProps({
     log: {
