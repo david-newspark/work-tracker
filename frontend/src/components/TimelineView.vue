@@ -6,6 +6,7 @@ import { storeToRefs } from 'pinia';
 import { useActivityStore } from '@/stores/activityStore';
 import type { Activity } from '@/types/Activity';
 import TimelineItem from './TimelineItem.vue';
+import ConfirmDialog from './ConfirmDialog.vue';
 const logStore = useLogStore()
 const activityStore = useActivityStore()
 const getById = (id: string): Activity | undefined => {
@@ -31,6 +32,7 @@ const heightStyle = computed(() => {
             </v-timeline>
         </div>
     </div>
+    <ConfirmDialog/>
 </template>
 <style>
 #main-virtual-wrapper {
