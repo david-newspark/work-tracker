@@ -38,6 +38,9 @@ export const useActivityStore = defineStore('activities', {
         this.active = ''
       } else this.active = activity.id
     },
+    deactivate(activity_id: string){
+      if(this.active === activity_id) this.active = ''
+    },
     remove(activity: Activity) {
       this.activities.map((a) => {
         if (a.id == activity.id) a.removed = true
