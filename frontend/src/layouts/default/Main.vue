@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-import LogTableIconDialogVue from '@/components/Logs/LogTableIconDialog.vue';
+import LogTableIconDialog from '@/components/Logs/LogTableIconDialog.vue';
 import { useActivityStore } from '@/stores/activityStore';
 import { useLogStore } from '@/stores/logsStore';
 import { useUserStateStore } from '@/stores/userStateStore';
@@ -50,7 +50,7 @@ const author = import.meta.env.VITE_APP_AUTHOR
                 </span>
             </span>
             <span>
-                <LogTableIconDialogVue />
+                <LogTableIconDialog />
             </span>
             <span class="ms-2" @click="setTheme">
                 <v-icon :icon="isDark ? 'mdi-weather-night' : 'mdi-weather-sunny'"></v-icon>
