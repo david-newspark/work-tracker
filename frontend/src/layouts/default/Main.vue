@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-import LogTableIconDialogVue from '@/components/LogTableIconDialog.vue';
+import LogTableIconDialogVue from '@/components/Logs/LogTableIconDialog.vue';
 import { useActivityStore } from '@/stores/activityStore';
 import { useLogStore } from '@/stores/logsStore';
 import { useUserStateStore } from '@/stores/userStateStore';
