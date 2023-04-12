@@ -24,6 +24,8 @@ const favIcon = useFavicon()
 const browserTitle = useTitle()
 const myColor = computed(() => props.active ? 'success' : '')
 const handleActivate = () => {
+    if (isEdit.value) return
+    console.log("Activate")
     activityStore.activate(activity.value)
     logStore.stop()
     if (activityStore.active.length > 0) {
@@ -42,6 +44,18 @@ const handleRemove = () => {
         logStore.stop()
     }
     activityStore.remove(activity.value)
+}
+
+const isEdit = ref(false)
+const editName = ref(activity.value.name)
+const handleEdit = () => {
+    console.log('isEdit')
+    isEdit.value = !isEdit.value
+}
+const updateActivity = () => {
+    console.log('Update Name')
+    activity.value.name = editName.value
+    isEdit.value = false
 }
 const iconName = `mdi-${activity.value.icon}`
 const logTime = computed(() => {
@@ -69,19 +83,39 @@ watch(mappedKey, (v) => {
                 <v-row>
                     <!-- actions -->
                     <v-col cols="2">
-                        <div v-show="isHovering" class="text-end">
-                            <v-btn variant="outlined" density="compact" disabled>{{ cmdKey }}</v-btn>
-                            <v-btn @click="handleRemove" icon="mdi-close-circle-outline" color="red-accent-1"
-                                :ripple="false" variant="plain">
-                            </v-btn>
-                        </div>
+                        <v-slide-x-reverse-transition>
+                            <div v-show="isHovering" class="text-end">
+                                <v-icon icon="mdi-close-circle-outline" size="large" end @click="handleRemove"
+                                    color="red-accent-1" />
+                                <v-icon icon="mdi-pencil-box-outline" size="large" end @click="handleEdit" />
+                                <v-btn variant="outlined" density="compact" disabled>{{ cmdKey }}</v-btn>
+                            </div>
+                        </v-slide-x-reverse-transition>
                     </v-col>
                     <!-- activity -->
                     <v-col>
-                        <v-card variant="tonal" @click="handleActivate" :color="myColor" :id="activity.id" class="pa-1"
-                            :append-icon="iconName" :loading="active" :class="active ? 'card-shadow' : ''">
+                        <v-card variant="tonal" :color="myColor" :id="activity.id" class="pa-1" :append-icon="iconName"
+                            v-if="isEdit">
                             <v-card-text class="align-self-center h-100">
-                                <h1 style="font-size:220%">{{ activity.name }}</h1>
+                                <div>
+                                    <v-text-field variant="underlined" v-model="editName" style="font-size:220%">
+                                    <template v-slot:append-inner>
+                                        <v-icon icon="mdi-check-outline" color="green" @click="updateActivity"></v-icon>
+                                    </template>
+                                    </v-text-field>
+                                </div>
+                                {{ logTime.length.toFixed() }} {{ logTime.type }}
+                            </v-card-text>
+                            <v-card-text>
+                                <v-alert density="compact" variant="outlined" prominent border="top" text="This will rename all entries!"></v-alert>
+                            </v-card-text>
+                        </v-card>
+                        <v-card variant="tonal" @click="handleActivate" :color="myColor" :id="activity.id" class="pa-1"
+                            :append-icon="iconName" :loading="active" :class="active ? 'card-shadow' : ''" v-else>
+                            <v-card-text class="align-self-center h-100">
+                                <div>
+                                    <h1 style="font-size:220%">{{ activity.name }}</h1>
+                                </div>
                                 {{ logTime.length.toFixed() }} {{ logTime.type }}
                                 <template v-slot:append>
                                 </template>

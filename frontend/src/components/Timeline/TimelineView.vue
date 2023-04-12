@@ -6,7 +6,7 @@ import { storeToRefs } from 'pinia';
 import { useActivityStore } from '@/stores/activityStore';
 import type { Activity } from '@/types/Activity';
 import TimelineItem from './TimelineItem.vue';
-import ConfirmDialog from './ConfirmDialog.vue';
+import ConfirmDialog from '../Dialogs/ConfirmDialog.vue';
 import { useDialogStore } from '@/stores/dialogStore';
 const logStore = useLogStore()
 const activityStore = useActivityStore()

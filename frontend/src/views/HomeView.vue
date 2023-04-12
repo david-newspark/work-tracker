@@ -1,7 +1,7 @@
 
 <script setup lang="ts">
-import ActivityList from '@/components/ActivityList.vue';
-import TimelineView from '@/components/TimelineView.vue';
+import ActivityList from '@/components/Activity/ActivityList.vue';
+import TimelineView from '@/components/Timeline/TimelineView.vue';
 
 </script>
 
