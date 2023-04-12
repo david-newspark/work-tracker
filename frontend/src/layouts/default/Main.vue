@@ -25,10 +25,10 @@ const totalTime = computed(() => {
     if (seconds < 60) return `${seconds.toFixed()} seconds`
     return `${(seconds / 60).toFixed()} minutes`
 })
-const setTheme = () =>{
+const setTheme = () => {
     theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
     userStateStore.userState.theme = theme.global.name.value
-} 
+}
 const isDark = computed(() => theme.global.name.value === 'dark')
 </script>
 <script lang="ts">
@@ -69,9 +69,9 @@ const author = import.meta.env.VITE_APP_AUTHOR
 </template>
 <style>
 .v-application {
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 </style>
