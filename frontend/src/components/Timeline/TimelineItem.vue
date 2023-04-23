@@ -53,6 +53,11 @@ const handleCancel = () => {
                     <span v-if="log.stop != undefined">
                         {{ logTime.length.toFixed(1) }} {{ logTime.type }}
                     </span>
+                    <span v-if="log.notes.length > 0">
+                        <v-badge :content="log.notes.length">
+                            <v-icon icon="mdi-note-text-outline" />
+                        </v-badge>
+                    </span>
                 </div>
             </v-timeline-item>
         </template>
