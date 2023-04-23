@@ -6,16 +6,18 @@ interface ActivityLog {
     stop: number | undefined,
     duration: number | undefined,
     duration_unit: string,
-    activity_id: string
+    activity_id: string,
+    notes: string[]
 }
 
-function createActivityLog(param: Omit<ActivityLog, 'id' | 'stop' | 'duration' | 'duration_unit'>): ActivityLog {
+function createActivityLog(param: Omit<ActivityLog, 'id' | 'stop' | 'duration' | 'duration_unit' | 'notes'>): ActivityLog {
     return { 
         ...param, 
         id: genUniqueId(),
         stop: undefined,
         duration: undefined,
-        duration_unit: 'seconds'
+        duration_unit: 'seconds',
+        notes: []
     }
 }
 
