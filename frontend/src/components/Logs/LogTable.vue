@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { useActivityStore } from '@/stores/activityStore';
 import { useLogStore } from '@/stores/logsStore';
-import type { Activity } from '@/types/Activity';
+import { createActivity, type Activity } from '@/types/Activity';
 import LogTableRow from './LogTableRow.vue';
 
 const logStore = useLogStore()
 const activityStore = useActivityStore()
-const getById = (id: string): Activity | undefined => {
-    return activityStore.activities.filter(a => a.id === id).shift()
+const getById = (id: string): Activity => {
+    const activity = activityStore.activities.filter(a => a.id === id).shift()
+    if(activity == undefined) return createActivity({name:"Missing", icon:''})
+    return activity
 }
 const headers = [
     {
